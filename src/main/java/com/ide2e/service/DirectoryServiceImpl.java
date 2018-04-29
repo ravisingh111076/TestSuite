@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 import com.ide2e.common.Config;
 
 public class DirectoryServiceImpl implements DirectoryService {
-	
+
 	public Stream<Path> getAllFiles() {
 		try {
 			return Files.list(Paths.get(Config.rootFolder)).filter(Files::isRegularFile);

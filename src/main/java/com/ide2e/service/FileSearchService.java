@@ -16,16 +16,16 @@ import com.ide2e.core.FileProperty;
 public class FileSearchService implements SearchService {
 
 	PropertyBuilder filePropertyBuilder = new PropertyBuilder();
-	
+
 	DirectoryService directoryService;
-	
+
 	public FileSearchService(DirectoryService dirService) {
 		directoryService = dirService;
 	}
 
 	public Set<FileProperty> findAll() {
 		Set<FileProperty> fileProperty = new HashSet<>();
-		//Files.list(Paths.get(Config.rootFolder)).filter(Files::isRegularFile)
+		// Files.list(Paths.get(Config.rootFolder)).filter(Files::isRegularFile)
 		directoryService.getAllFiles().forEach(f -> {
 			fileProperty.add(filePropertyBuilder.buildFileProperty(f.toFile()));
 		});
@@ -50,7 +50,7 @@ public class FileSearchService implements SearchService {
 		return fileProperty;
 	}
 
-	//can be injected using DI framework 
+	// can be injected using DI framework
 	public void setDirectoryService(DirectoryService directoryService) {
 		this.directoryService = directoryService;
 	}
