@@ -1,5 +1,6 @@
 package com.ide2e.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,47 +13,45 @@ import com.ide2e.common.PropertyBuilder;
 import com.ide2e.common.SupportedFiles;
 import com.ide2e.core.FileProperty;
 
+public class FileSearchService implements SearchService {
 
-public class FileSearchService implements RepositoryService {
-	
 	PropertyBuilder filePropertyBuilder = new PropertyBuilder();
 	
+	DirectoryService directoryService;
+	
+	public FileSearchService(DirectoryService dirService) {
+		directoryService = dirService;
+	}
+
 	public Set<FileProperty> findAll() {
 		Set<FileProperty> fileProperty = new HashSet<>();
-		 try {
-				Files.list(Paths.get(Config.rootFolder))
-				.filter(Files::isRegularFile)
-				.forEach(f -> {		
-						fileProperty.add(filePropertyBuilder.buildFileProperty(f.toFile()));
-				});
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		return fileProperty;		
-	}
-	
-	private boolean isSupported(Path path) {
-		return path.toString().endsWith("." + SupportedFiles.EXCEL.getMimeType())
-				|| path.toString().endsWith("." + SupportedFiles.CSV.getMimeType());
-			
-	}
-	
-	public Set<FileProperty> findAllSupportedFiles() {
-		
-		Set<FileProperty> fileProperty = new HashSet<>();
-		 try {
-				Files.list(Paths.get(Config.rootFolder))
-				.filter(Files::isRegularFile)
-				.forEach(f -> {	
-						if(isSupported(f)) {
-							fileProperty.add(filePropertyBuilder.buildFileProperty(f.toFile()));
-						}
-			  });
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		//Files.list(Paths.get(Config.rootFolder)).filter(Files::isRegularFile)
+		directoryService.getAllFiles().forEach(f -> {
+			fileProperty.add(filePropertyBuilder.buildFileProperty(f.toFile()));
+		});
 		return fileProperty;
+	}
+
+	private boolean isSupported(File f) {
+		return f.getName().endsWith("." + SupportedFiles.EXCEL.getMimeType())
+				|| f.getName().toString().endsWith("." + SupportedFiles.CSV.getMimeType());
+
+	}
+
+	public Set<FileProperty> findAllSupportedFiles() {
+
+		Set<FileProperty> fileProperty = new HashSet<>();
+		directoryService.getAllFiles().forEach(f -> {
+			File file = f.toFile();
+			if (isSupported(file)) {
+				fileProperty.add(filePropertyBuilder.buildFileProperty(file));
+			}
+		});
+		return fileProperty;
+	}
+
+	//can be injected using DI framework 
+	public void setDirectoryService(DirectoryService directoryService) {
+		this.directoryService = directoryService;
 	}
 }

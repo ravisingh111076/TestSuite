@@ -1,13 +1,14 @@
 package com.ide2e.core;
 
 /**
- * This read only class
+ * Holds file property.
+ * 
  * @author ravisingh
  *
  */
 public class FileProperty {
-	
-    public FileProperty(String fileName, String fileMimeType, String fileExtension, Long fileSize) {
+
+	public FileProperty(String fileName, String fileMimeType, String fileExtension, Long fileSize) {
 		super();
 		this.fileName = fileName;
 		this.fileMimeType = fileMimeType;
@@ -16,12 +17,12 @@ public class FileProperty {
 	}
 
 	private String fileName;
-    
-    private String fileMimeType;
-    
-    private String fileExtension;
-    
-    private Long fileSize;
+
+	private String fileMimeType;
+
+	private String fileExtension;
+
+	private Long fileSize;
 
 	public String getFileName() {
 		return fileName;
@@ -80,6 +81,6 @@ public class FileProperty {
 		} else if (!fileSize.equals(other.fileSize))
 			return false;
 		return true;
-	}  
-    
+	}
+
 }
