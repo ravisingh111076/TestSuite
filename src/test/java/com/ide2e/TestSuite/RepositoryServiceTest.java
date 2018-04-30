@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.ide2e.core.FileProperty;
 import com.ide2e.service.DirectoryService;
-import com.ide2e.service.FileSearchService;
+import com.ide2e.service.FileSearchServiceImpl;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -22,7 +22,7 @@ public class RepositoryServiceTest {
 
 	Logger log = Logger.getLogger(RepositoryServiceTest.class.getName());
 
-	FileSearchService service;
+	FileSearchServiceImpl service;
 
 	@Before
 	public void setUp() {
@@ -57,7 +57,7 @@ public class RepositoryServiceTest {
 		when(file4.length()).thenReturn(200L);
 		when(path4.toFile()).thenReturn(file4);
 
-		service = new FileSearchService(new DirectoryService() {
+		service = new FileSearchServiceImpl(new DirectoryService() {
 			@Override
 			public Stream<Path> getAllFiles() {
 				return Stream.of(path1, path2, path3, path4);

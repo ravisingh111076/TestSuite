@@ -2,7 +2,7 @@ package com.ide2e.TestSuite;
 
 import com.ide2e.core.FileProperty;
 import com.ide2e.service.DirectoryServiceImpl;
-import com.ide2e.service.FileSearchService;
+import com.ide2e.service.FileSearchServiceImpl;
 
 /**
  * Main class 
@@ -10,7 +10,7 @@ import com.ide2e.service.FileSearchService;
  */
 public class App {
 	public static void main(String[] args) {
-		FileSearchService service = new FileSearchService(new DirectoryServiceImpl());
+		FileSearchServiceImpl service = new FileSearchServiceImpl(new DirectoryServiceImpl());
 
 		System.out.println(" Retrieving all supported files ...");
 		service.findAllSupportedFiles().forEach(a -> printDetails(a));
