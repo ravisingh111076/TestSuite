@@ -33,7 +33,7 @@ public class SeleniumVehicleDataTestSuite {
 	//change location of driver
 	private final String driverLocatio = "/Users/ravisingh/Projects/TestAutomation/chromedriver";
 	
-	private final String startButton = "//a[@class='pub-c-button pub-c-button--start']";
+	private final String startButton = "//a[@class='gem-c-button gem-c-button--start']";
 	private final String registrationSearchElement ="//input[@class='form-control "
 			+ "form-control-1-4 input-upper']";
 	
@@ -55,6 +55,7 @@ public class SeleniumVehicleDataTestSuite {
 
 	@After
 	public void saveTestResultScreen() throws IOException {
+		
 		//capture screen test
 	}
 
